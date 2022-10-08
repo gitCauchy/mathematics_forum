@@ -14,14 +14,19 @@
         </el-card>
       </el-header>
       <el-main>
-        <el-card class="box-card">
-          <ul v-infinite-scroll="load" class="infinite-list" style="overflow: auto">
-            <li v-for="i in count" :key="i" class="infinite-list-item">{{ i }}</li>
-          </ul>
+        <el-card class="box-card" >
+          <div v-infinite-scroll="load" class="infinite-list" style="overflow: auto">
+            <el-card v-for="i in count" :key="i" class="infinite-list-item">
+              <el-row>
+                <p>123456789</p>
+              </el-row>
+            </el-card>
+          </div>
         </el-card>
       </el-main>
+
       <el-footer class="footer">
-        <div style="text-align: center">
+        <div>
           底部的内容
         </div>
       </el-footer>
@@ -29,16 +34,19 @@
   </div>
 </template>
 
+<script setup>
+import {ref} from 'vue'
+
+const count = ref(0)
+const load = () => {
+  count.value += 2;
+}
+</script>
 <script>
+
+
 export default {
   name: "Home",
-  data() {
-    return {
-      retrun() {
-
-      }
-    }
-  }
 }
 </script>
 <style scoped>
@@ -54,8 +62,37 @@ export default {
   width: 60%;
   margin: auto;
 }
-.footer{
+
+.footer {
   background: aqua;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.infinite-list {
+  height: 600px;
+  padding: 0;
+  margin: 0;
+  /*list-style: none;*/
+}
+
+.infinite-list .infinite-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  background: var(--el-color-primary-light-9);
+  margin: 10px;
+  color: var(--el-color-primary);
+}
+
+.infinite-list .infinite-list-item + .list-item {
+  margin-top: 10px;
 }
 
 </style>
