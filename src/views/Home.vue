@@ -15,15 +15,15 @@
       </el-header>
       <el-main>
         <el-card class="box-card">
-          <div>
-            <el-row>第一行内容</el-row>
-            <el-row>第二行内容</el-row>
-            <el-row>第三行内容</el-row>
-          </div>
+          <ul v-infinite-scroll="load" class="infinite-list" style="overflow: auto">
+            <li v-for="i in count" :key="i" class="infinite-list-item">{{ i }}</li>
+          </ul>
         </el-card>
       </el-main>
-      <el-footer>
-        <el-card class="box-card"></el-card>
+      <el-footer class="footer">
+        <div style="text-align: center">
+          底部的内容
+        </div>
       </el-footer>
     </el-container>
   </div>
@@ -31,7 +31,14 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  data() {
+    return {
+      retrun() {
+
+      }
+    }
+  }
 }
 </script>
 <style scoped>
@@ -47,6 +54,8 @@ export default {
   width: 60%;
   margin: auto;
 }
-
+.footer{
+  background: aqua;
+}
 
 </style>
