@@ -14,14 +14,14 @@
         </el-card>
       </el-header>
       <el-main>
-        <el-card class="box-card" >
-          <div v-infinite-scroll="load" class="infinite-list" style="overflow: auto">
-            <el-card v-for="i in count" :key="i" class="infinite-list-item">
-              <el-row>
-                <p>123456789</p>
-              </el-row>
-            </el-card>
-          </div>
+        <el-card class="box-card">
+          <!--          <div v-infinite-scroll="load" class="infinite-list" style="overflow: auto">-->
+          <el-card v-for="i in list" :key="i" class="infinite-list-item">
+            <el-row>
+              <p>123456789</p>
+            </el-row>
+          </el-card>
+          <!--          </div>-->
         </el-card>
       </el-main>
 
@@ -35,18 +35,18 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
 
-const count = ref(0)
-const load = () => {
-  count.value += 2;
-}
 </script>
 <script>
 
 
 export default {
   name: "Home",
+  data() {
+    return {
+      list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    }
+  }
 }
 </script>
 <style scoped>
