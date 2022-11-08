@@ -40,12 +40,24 @@
 <script>
 
 
+import {getTop20HotPost} from "@/api/home";
+
 export default {
   name: "Home",
   data() {
     return {
-      list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      list: []
     }
+  },
+  methods: {
+    getDataList() {
+      getTop20HotPost().then(response => {
+        this.list = response;
+      })
+    }
+  },
+  created() {
+    this.getDataList();
   }
 }
 </script>
@@ -64,9 +76,6 @@ export default {
 }
 
 .footer {
-  background: aqua;
-  position: fixed;
-  bottom: 0;
   width: 100%;
   height: 30px;
   display: flex;
