@@ -16,9 +16,20 @@
       <el-main>
         <el-card class="box-card">
           <!--          <div v-infinite-scroll="load" class="infinite-list" style="overflow: auto">-->
-          <el-card v-for="i in list" :key="i" class="infinite-list-item">
+          <el-card v-for="post in hotPostList" :key="post" class="infinite-list-item">
             <el-row>
-              <p>123456789</p>
+              <p>{{ post.author }}</p>
+            </el-row>
+            <el-row>
+              <p>{{ post.content }}</p>
+            </el-row>
+            <el-row>
+              <el-col>
+                <el-icon>
+                  <Edit style="width: 5em; height: 5em; margin-right: 8px"/>
+                </el-icon>
+              </el-col>
+              <el-col>{{ post.like }}</el-col>
             </el-row>
           </el-card>
           <!--          </div>-->
@@ -40,19 +51,19 @@
 <script>
 
 
-import {getTop20HotPost} from "@/api/home";
+import {getTop20HotPost} from "@/api/hot_post";
 
 export default {
-  name: "Home",
+  name: "HotPost",
   data() {
     return {
-      list: []
+      hotPostList: []
     }
   },
   methods: {
     getDataList() {
       getTop20HotPost().then(response => {
-        this.list = response;
+        this.hotPostList = response;
       })
     }
   },
