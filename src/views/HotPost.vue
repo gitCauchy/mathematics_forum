@@ -24,12 +24,10 @@
               <p>{{ post.content }}</p>
             </el-row>
             <el-row>
-              <el-col>
-                <el-icon>
-                  <Edit style="width: 5em; height: 5em; margin-right: 8px"/>
-                </el-icon>
-              </el-col>
-              <el-col>{{ post.like }}</el-col>
+              <el-icon size="100px">
+                <Edit style="width: 5em; height: 5em; margin-right: 8px"/>
+              </el-icon>
+              {{ post.like }}
             </el-row>
           </el-card>
           <!--          </div>-->
