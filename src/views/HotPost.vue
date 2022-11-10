@@ -1,36 +1,50 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div class="common-layout">
     <el-container>
       <el-header>
-        <el-card class="box-card">
-          <el-row>
-            <el-col id="search_input_col">
-              <el-input placeholder="Search"/>
-            </el-col>
-            <el-col id="search_button_col">
-              <el-button>搜索</el-button>
-            </el-col>
-          </el-row>
+        <el-card class="box-card" id="header">
+         <div>
+           <span style="font-size: large">今日热榜 Top 20</span>
+           <span style="float: right">{{this.getTodayDate()}}</span>
+         </div>
         </el-card>
       </el-header>
       <el-main>
         <el-card class="box-card">
-          <!--          <div v-infinite-scroll="load" class="infinite-list" style="overflow: auto">-->
-          <el-card v-for="post in hotPostList" :key="post" class="infinite-list-item">
+          <el-card v-for="post in hotPostList" :key="post" class="infinite-list-item" style="margin-bottom: 20px" id="body">
             <el-row>
               <p>{{ post.author }}</p>
             </el-row>
             <el-row>
               <p>{{ post.content }}</p>
             </el-row>
-            <el-row>
-              <el-icon size="100px">
-                <Edit style="width: 5em; height: 5em; margin-right: 8px"/>
-              </el-icon>
-              {{ post.like }}
+            <el-row :gutter="10">
+              <el-col :span="6">
+                <div style="float: left">
+                  <el-tooltip content="点赞" placement="top">
+                    <el-icon size="28px" style="cursor:pointer" @click="addLike(post.id)">
+                      <Pointer style="width: 25px; height: 25px; margin-right: 4px"/>
+                    </el-icon>
+                  </el-tooltip>
+                </div>
+                <div style="float: left;">
+                  {{ post.like }}
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div style="float: left">
+                  <el-tooltip content="评论" placement="top">
+                    <el-icon size="28px" style="cursor:pointer">
+                      <ChatLineSquare style="width: 25px; height: 25px; margin-right: 4px"/>
+                    </el-icon>
+                  </el-tooltip>
+                </div>
+                <div style="float: left;">
+                  {{ post.comments.length }}
+                </div>
+              </el-col>
             </el-row>
           </el-card>
-          <!--          </div>-->
         </el-card>
       </el-main>
 
@@ -49,7 +63,7 @@
 <script>
 
 
-import {getTop20HotPost} from "@/api/hot_post";
+import {getTop20HotPost,addLike} from "@/api/hot_post";
 
 export default {
   name: "HotPost",
@@ -59,25 +73,33 @@ export default {
     }
   },
   methods: {
+    addLike(postId) {
+      addLike(postId).then(
+
+      )
+    },
     getDataList() {
       getTop20HotPost().then(response => {
         this.hotPostList = response;
       })
+    },
+    getTodayDate(){
+      let today = new Date();
+      let year = today.getFullYear();
+      let month = today.getMonth();
+      let day = today.getDay();
+      return year + " 年 " + month + " 月 " + day + " 日 ";
     }
   },
   created() {
     this.getDataList();
+  },
+  computed:{
+
   }
 }
 </script>
 <style scoped>
-#search_input_col {
-  max-width: 50%;
-}
-
-#search_button_col {
-  max-width: 50%;
-}
 
 .box-card {
   width: 60%;
@@ -111,6 +133,14 @@ export default {
 
 .infinite-list .infinite-list-item + .list-item {
   margin-top: 10px;
+}
+
+#header {
+  background: url("../assets/hot_post/header_background.png");
+}
+
+#body {
+  background: url("../assets/hot_post/body_background.png");
 }
 
 </style>
