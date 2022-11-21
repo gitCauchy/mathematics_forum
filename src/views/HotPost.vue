@@ -3,20 +3,23 @@
     <el-container>
       <el-header>
         <el-card class="box-card" id="header">
-         <div>
-           <span style="font-size: large">今日热榜 Top 20</span>
-           <span style="float: right">{{this.getTodayDate()}}</span>
-         </div>
+          <div>
+            <span style="font-size: large">今日热榜 Top 20</span>
+            <span style="float: right">{{ this.getTodayDate() }}</span>
+          </div>
         </el-card>
       </el-header>
       <el-main>
         <el-card class="box-card">
-          <el-card v-for="post in hotPostList" :key="post" class="infinite-list-item" style="margin-bottom: 20px" id="body">
+          <el-card v-for="(post,index) in hotPostList" class="infinite-list-item"
+                   style="margin-bottom: 20px"
+                   id="body">
             <el-row>
               <p>{{ post.author }}</p>
             </el-row>
             <el-row>
-              <p>{{ post.content }}</p>
+              <p v-if="openArray[index]">{{ post.content.substr(0, 140) }}<a onclick=""> ...</a></p>
+              <p v-else>{{ post.content }}</p>
             </el-row>
             <el-row :gutter="10">
               <el-col :span="6">
@@ -63,13 +66,14 @@
 <script>
 
 
-import {getTop20HotPost,addLike} from "@/api/hot_post";
+import {getTop20HotPost, addLike} from "@/api/hot_post";
 
 export default {
   name: "HotPost",
   data() {
     return {
-      hotPostList: []
+      hotPostList: [],
+      openArray: new Array(20).fill(true),
     }
   },
   methods: {
@@ -83,7 +87,7 @@ export default {
         this.hotPostList = response;
       })
     },
-    getTodayDate(){
+    getTodayDate() {
       let today = new Date();
       let year = today.getFullYear();
       let month = today.getMonth();
@@ -94,9 +98,7 @@ export default {
   created() {
     this.getDataList();
   },
-  computed:{
-
-  }
+  computed: {}
 }
 </script>
 <style scoped>
