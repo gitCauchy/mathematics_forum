@@ -11,15 +11,19 @@
       </el-header>
       <el-main>
         <el-card class="box-card">
-          <el-card v-for="(post,index) in hotPostList" class="infinite-list-item"
+          <el-card v-for="(post,index) in hotPostList" :key="index" class="infinite-list-item"
                    style="margin-bottom: 20px"
                    id="body">
             <el-row>
               <p>{{ post.author }}</p>
             </el-row>
             <el-row>
-              <p v-if="openArray[index]">{{ post.content.substr(0, 140) }}<a onclick=""> ...</a></p>
-              <p v-else>{{ post.content }}</p>
+              <div v-if="openArray[index] && post.content.length > 140">
+                <p>{{ post.content.substr(0, 140) }}<a @click="openArray[index] = !openArray[index]"> [展开 ...]</a></p>
+              </div>
+              <div v-else>
+                {{ post.content }}<a v-if="post.content.length > 140" @click="openArray[index] = !openArray[index]"> [收起 ...]</a>
+              </div>
             </el-row>
             <el-row :gutter="10">
               <el-col :span="6">
@@ -60,9 +64,6 @@
   </div>
 </template>
 
-<script setup>
-
-</script>
 <script>
 
 
