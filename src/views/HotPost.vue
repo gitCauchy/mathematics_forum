@@ -22,7 +22,8 @@
                 <p>{{ post.content.substr(0, 140) }}<a @click="openArray[index] = !openArray[index]"> [展开 ...]</a></p>
               </div>
               <div v-else>
-                {{ post.content }}<a v-if="post.content.length > 140" @click="openArray[index] = !openArray[index]"> [收起 ...]</a>
+                {{ post.content }}<a v-if="post.content.length > 140" @click="openArray[index] = !openArray[index]"> [收起
+                ...]</a>
               </div>
             </el-row>
             <el-row :gutter="10">
@@ -79,9 +80,9 @@ export default {
   },
   methods: {
     addLike(postId) {
-      addLike(postId).then(
+      addLike(postId).then(response=>{
+      })
 
-      )
     },
     getDataList() {
       getTop20HotPost().then(response => {
@@ -91,8 +92,8 @@ export default {
     getTodayDate() {
       let today = new Date();
       let year = today.getFullYear();
-      let month = today.getMonth();
-      let day = today.getDay();
+      let month = today.getMonth() + 1;
+      let day = today.getDate();
       return year + " 年 " + month + " 月 " + day + " 日 ";
     }
   },
