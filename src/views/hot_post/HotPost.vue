@@ -140,11 +140,11 @@ export default {
 }
 
 #header {
-  background: url("../assets/hot_post/header_background.png");
+  background: url("../../assets/hot_post/header_background.png");
 }
 
 #body {
-  background: url("../assets/hot_post/body_background.png");
+  background: url("../../assets/hot_post/body_background.png");
 }
 
 </style>
